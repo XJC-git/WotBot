@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    body {
+        font-size: 26px;
+        font-family: "Microsoft YaHei UI";
+    }
+
+    .font-size {
+        font-weight: bold;
+        font-size: 28px;
+    }
+
+    .font-data {
+        font-weight: bold;
+    }
+
+    .greyColor {
+        color: #696969;
+    }
+
+    .greyColor2 {
+        color: #404040;
+    }
+
+    .blueColor {
+        font-weight: bold;
+        color: #000080;
+    }
+
+    .blackColor {
+        font-weight: bold;
+        color: black;
+    }
+
+    .bold-data {
+        font-weight: bold;
+    }
+
+   .server {
+			display: inline-block;
+			padding-left: 10px;
+   }
+
+   .server-border {
+			width: 200px;
+			height: 50px;
+			line-height: 50px;
+			text-align: center;
+			background-color: #F2F2F2;
+			border-radius: 25px;
+			font-size: 35px;
+		}
+
+</style>
+<body>
+    <div class="main-content">
+			<div class="page-box">
+				<div class="page-header">
+					<div class="clan-user-server">
+
+						{% if data['clan_tag'] %}
+						<div class="clan" style="color: grey;">[{{ data['clan_tag'] }}]</div>
+						{% endif %}
+						<div class="user">{{ data['account_name'] }}</div>
+						<div class="server">
+							<div class="server-border">
+								国服
+							</div>
+						</div>
+					</div>
+				</div>
+                <div class="overview-change">
+					<div class="overview-change-item left-item">
+						<div class="left-item-top item-top">
+							<div class="overview-count-title item-top-top">场次</div>
+							<div class="overview-count item-top-bottom">{{ data['account_battles'] }}</div>
+						</div>
+                    </div>
+                    <div class="overview-change-item mid-item">
+						<div class="mid-item-top item-top">
+							<div class="overview-win-title item-top-top">胜率</div>
+							<div class="overview-win item-top-bottom" style="color: blueviolet">{{ '%.2f' | format(data['account_wins']) }}%</div>
+						</div>
+                    </div>
+                    <div class="overview-change-item right-item">
+						<div class="right-item-top item-top">
+							<div class="overview-avgdmg-title item-top-top">经验</div>
+							<div class="overview-avgdmg item-top-bottom" >{{ data['account_exp'] }}</div>
+						</div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</body>
+<style>
+    * {
+			padding: 0;
+			margin: 0;
+		}
+
+		.flex-2 {
+			flex: 2;
+		}
+
+		.flex-3 {
+			flex: 3;
+		}
+
+		.flex-4 {
+			flex: 4;
+		}
+
+		.flex-8 {
+			flex: 8;
+		}
+
+		.flex-10 {
+			flex: 10;
+		}
+
+		.main-content {
+			width: 1000px;
+			font-size: 30px;
+			font-weight: bold;
+		}
+
+		.page-box {
+			width: 1000px;
+			display: flex;
+			flex-direction: column;
+		}
+
+		.page-header {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.clan-user-server {
+			height: 120px;
+			text-align: center;
+			font-size: 45px;
+			line-height: 120px;
+		}
+
+		.clan {
+			display: inline-block;
+			padding-right: 10px;
+			height: 120px;
+		}
+
+		.user {
+			display: inline-block;
+			height: 120px;
+		}
+
+		.server {
+			display: inline-block;
+			padding-left: 10px;
+		}
+
+		.server-border {
+			width: 200px;
+			height: 50px;
+			line-height: 50px;
+			text-align: center;
+			background-color: #F2F2F2;
+			border-radius: 25px;
+			font-size: 35px;
+		}
+
+		.ship-bar {
+			height: 80px;
+			font-size: 40px;
+			line-height: 80px;
+			text-align: center;
+			display: flex;
+		}
+
+		.ship-level {
+			flex: 1;
+			text-align: right;
+			margin-right: 30px;
+		}
+
+		.ship-icon {
+			flex: 1;
+			text-align: left;
+			margin-left: 30px;
+		}
+
+		.ship-icon img {
+			width: 80px;
+			height: 80px;
+		}
+
+		.pr {
+			display: flex;
+			height: 100px;
+			font-weight: bold;
+			line-height: 60px;
+			padding: 0 50px;
+		}
+
+		.pr-bar-bg {
+			position: relative;
+			flex: 1;
+			line-height: 80px;
+			background-color: #A6A6A6;
+			height: 80px;
+			border-radius: 40px;
+			margin-top: 10px;
+			text-align: center;
+			color: #FFFFFF;
+		}
+
+		.pr-bar {
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 80px;
+			z-index: 1;
+			border-radius: 40px;
+		}
+
+		.pr-number {
+			z-index: 99;
+			position: absolute;
+			left: 0px;
+			right: 0px;
+			font-size: 35px;
+			font-weight: bold;
+		}
+
+		.recnet-time {
+			text-align: center;
+			font-weight: normal;
+		}
+
+		.overview-change {
+			display: flex;
+			margin-top: 30px;
+			padding: 0 30px;
+			height: 300px;
+		}
+
+		.overview-change-item {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			margin: 0 20px;
+
+		}
+
+		.item-top {
+			flex: 5;
+			background-color: #F2F2F2;
+			border-radius: 16px;
+		}
+
+		.item-bottom {
+			display: flex;
+			flex: 4;
+			margin-top: 20px;
+		}
+
+		.left-item-bottom {
+			background-color: #F2F2F2;
+			border-radius: 16px;
+		}
+
+		.bottom-mini-item-left {
+			flex: 1;
+			margin-right: 10px;
+			background-color: #F2F2F2;
+			border-radius: 16px;
+		}
+
+		.bottom-mini-item-right {
+			flex: 1;
+			margin-left: 10px;
+			background-color: #F2F2F2;
+			border-radius: 16px;
+		}
+
+		.item-top {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.item-top div {
+			height: 80px;
+			text-align: center;
+			font-size: 40px;
+		}
+
+		.item-top-top {
+			color: #606266;
+			font-weight: normal;
+			line-height: 100px;
+		}
+
+		.item-top-bottom {
+			line-height: 60px;
+		}
+
+		.left-item-bottom {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.change-pr-title {
+			color: #606266;
+			height: 60px;
+			display: flex;
+			font-weight: normal;
+			line-height: 70px;
+		}
+
+		.change-pr {
+			height: 60px;
+			line-height: 50px;
+			text-align: center;
+			font-size: 30px;
+		}
+
+		.change-pr-title-left {
+			flex: 1;
+			font-size: 35px;
+			text-align: right;
+			margin-right: 30px;
+		}
+
+		.change-pr-title-right {
+			flex: 1;
+			font-size: 20px;
+		}
+
+		.bottom-mini-item-left,
+		.bottom-mini-item-right {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.mini-item-top {
+			color: #606266;
+			font-weight: normal;
+			line-height: 70px;
+		}
+
+		.mini-item-bottom {
+			line-height: 45px;
+			font-size: 27px;
+		}
+
+		.bottom-mini-item-left div,
+		.bottom-mini-item-right div {
+			height: 60px;
+			text-align: center;
+		}
+
+		.information-header,
+		.day-header {
+			margin: 0 200px;
+			margin-top: 30px;
+			height: 60px;
+			line-height: 60px;
+			border-radius: 16px;
+			background-color: #D9D9D9;
+			text-align: center;
+		}
+
+		.information-body {
+			margin: 0 50px;
+			margin-top: 30px;
+			display: flex;
+			flex-direction: column;
+			background-color: #F2F2F2;
+			border-radius: 16px;
+		}
+
+		.information-col {
+			height: 60px;
+			display: flex;
+			line-height: 60px;
+		}
+
+		.information-col-item,
+		.day-col-item {
+			flex: 1;
+			text-align: center;
+		}
+
+		.information-table-header {
+			color: #606266;
+		}
+
+		.information-type {
+			color: #909399;
+		}
+
+		.day-body {
+			margin: 0 50px;
+			margin-top: 30px;
+		}
+
+		.day-table-header {
+			height: 60px;
+			line-height: 60px;
+			background-color: #D9D9D9;
+			display: flex;
+			border-radius: 16px;
+			color: #606266;
+		}
+
+		.date {
+			background-color: #D9D9D9;
+			width: 300px;
+			height: 40px;
+			line-height: 40px;
+			text-align: center;
+			border-radius: 20px;
+			margin-top: 10px;
+		}
+
+		.day-col {
+			display: flex;
+			height: 60px;
+			line-height: 60px;
+			background-color: #F2F2F2;
+			border-radius: 30px;
+			margin: 10px 0;
+		}
+
+		.footer {
+			margin-top: 30px;
+			text-align: center;
+			font-weight: bold;
+			font-size: 24px;
+			color: #909399;
+			margin-bottom: 20px;
+		}
+</style>

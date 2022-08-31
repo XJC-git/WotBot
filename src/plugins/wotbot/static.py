@@ -1,0 +1,1 @@
+MSG_DEFAULT = '请发送wotbot help查看帮助'
