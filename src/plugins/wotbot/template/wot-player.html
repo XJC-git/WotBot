@@ -64,7 +64,7 @@
 					<div class="clan-user-server">
 
 						{% if data['clan_tag'] %}
-						<div class="clan" style="color: grey;">[{{ data['clan_tag'] }}]</div>
+						<div class="clan" style="color: {{data['clan_color']}};">[{{ data['clan_tag'] }}]</div>
 						{% endif %}
 						<div class="user">{{ data['account_name'] }}</div>
 						<div class="server">
@@ -80,21 +80,64 @@
 							<div class="overview-count-title item-top-top">场次</div>
 							<div class="overview-count item-top-bottom">{{ data['account_battles'] }}</div>
 						</div>
+						<div class="left-item-bottom item-bottom">
+							<div class="change-pr-title">
+								<div class="change-pr-title-left">场均伤害</div>
+							</div>
+							<div class="change-pr">{{ data['damage_average'] }}</div>
+						</div>
                     </div>
                     <div class="overview-change-item mid-item">
 						<div class="mid-item-top item-top">
 							<div class="overview-win-title item-top-top">胜率</div>
 							<div class="overview-win item-top-bottom" style="color: blueviolet">{{ '%.2f' | format(data['account_wins']) }}%</div>
 						</div>
+						<div class="left-item-bottom item-bottom">
+							<div class="change-pr-title">
+								<div class="change-pr-title-left">场均经验</div>
+							</div>
+							<div class="change-pr">{{ data['exp_average'] }}</div>
+						</div>
                     </div>
                     <div class="overview-change-item right-item">
 						<div class="right-item-top item-top">
-							<div class="overview-avgdmg-title item-top-top">经验</div>
-							<div class="overview-avgdmg item-top-bottom" >{{ data['account_exp'] }}</div>
+							<div class="overview-avgdmg-title item-top-top">效率</div>
+							<div class="overview-avgdmg item-top-bottom" >{{ data['power'] }}</div>
+						</div>
+						<div class="right-item-bottom item-bottom">
+							<div class="overview-kd-box bottom-mini-item-left">
+								<div class="mini-item-top">击杀</div>
+								<div class="mini-item-bottom">{{ data['kill_average'] }}</div>
+							</div>
+							<div class="overview-hit-box bottom-mini-item-right">
+								<div class="mini-item-top">命中</div>
+								<div class="mini-item-bottom">{{ data['hit_average'] }}%</div>
+							</div>
 						</div>
                     </div>
                 </div>
-            </div>
+				<div class="information-header">近期战绩</div>
+				<div class="information-body">
+					<div class="information-col information-table-header">
+						<div class="information-col-item"></div>
+						<div class="information-col-item">车型</div>
+						<div class="information-col-item">胜率</div>
+						<div class="information-col-item">伤害</div>
+						<div class="information-col-item">效率</div>
+					</div>
+					{% for eachTankData in data['recent_tank'] %}
+					<div class="information-col">
+						<div class="information-col-item">
+							<img src="{{eachTankData['tank_icon']}}">
+						</div>
+						<div class="information-col-item">{{ eachTankData['tank_name'] }}</div>
+						<div class="information-col-item" style="color: black;">{{ eachTankData['tank_win_ratio'] }}</div>
+						<div class="information-col-item" style="color: black;">{{ eachTankData['tank_damage_average'] }}</div>
+						<div class="information-col-item" style="color: black;">{{ eachTankData['tank_power'] }}</div>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
     </div>
 </body>
 <style>
@@ -313,6 +356,11 @@
 			flex-direction: column;
 		}
 
+		.mid-item-bottom{
+			display: flex;
+			flex-direction: column;
+		}
+
 		.change-pr-title {
 			color: #606266;
 			height: 60px;
@@ -331,8 +379,7 @@
 		.change-pr-title-left {
 			flex: 1;
 			font-size: 35px;
-			text-align: right;
-			margin-right: 30px;
+			text-align: center;
 		}
 
 		.change-pr-title-right {
