@@ -1,6 +1,7 @@
 # WotBot
 坦克世界QQ群水表机器人，基于NoneBot2开发
 支持查询近期战绩、单车战绩
+![示例](https://github.com/XJC-git/WotBot/raw/main/example.png)
 ## How to start
 
 1. generate project using `nb create` .
