@@ -9,9 +9,10 @@ from nonebot.params import Arg, CommandArg, ArgPlainText
 
 from src.plugins.wotbot import static
 from src.plugins.wotbot.command import match_command
+from src.plugins.wotbot.db import check_database
 
 wotbot = on_command("wotbot", aliases={"WOTBOT"}, priority=5)
-
+check_database()
 
 @wotbot.handle()
 async def handle_main_command(bot: Bot, ev: MessageEvent, args: Message = CommandArg()):

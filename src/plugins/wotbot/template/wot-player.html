@@ -74,6 +74,17 @@
 						</div>
 					</div>
 				</div>
+
+				<div class="pr">
+					<!-- 动态设置长度及颜色，填写PR即可 -->
+					<div class="pr-bar-bg">
+						{% if data['power'] %}
+						<span class="pr-number">{{ data['power'] }} &nbsp;&nbsp;&nbsp;&nbsp;<span class="pr-text"></span></span>
+						{% endif %}
+						<div class="pr-bar"></div>
+					</div>
+				</div>
+
                 <div class="overview-change">
 					<div class="overview-change-item left-item">
 						<div class="left-item-top item-top">
@@ -90,7 +101,7 @@
                     <div class="overview-change-item mid-item">
 						<div class="mid-item-top item-top">
 							<div class="overview-win-title item-top-top">胜率</div>
-							<div class="overview-win item-top-bottom" style="color: blueviolet">{{ '%.2f' | format(data['account_wins']) }}%</div>
+							<div class="overview-win item-top-bottom" style="color: {{data['win_color']}}">{{ '%.2f' | format(data['account_wins']) }}%</div>
 						</div>
 						<div class="left-item-bottom item-bottom">
 							<div class="change-pr-title">
@@ -102,7 +113,7 @@
                     <div class="overview-change-item right-item">
 						<div class="right-item-top item-top">
 							<div class="overview-avgdmg-title item-top-top">效率</div>
-							<div class="overview-avgdmg item-top-bottom" >{{ data['power'] }}</div>
+							<div class="overview-avgdmg item-top-bottom" style="color: {{data['power_color']}}">{{ data['power'] }}</div>
 						</div>
 						<div class="right-item-bottom item-bottom">
 							<div class="overview-kd-box bottom-mini-item-left">
@@ -130,10 +141,10 @@
 						<div class="information-col-item">
 							<img src="{{eachTankData['tank_icon']}}">
 						</div>
-						<div class="information-col-item">{{ eachTankData['tank_name'] }}</div>
+						<div class="information-col-item information-type">{{ eachTankData['tank_name'] }}</div>
 						<div class="information-col-item" style="color: black;">{{ eachTankData['tank_win_ratio'] }}</div>
 						<div class="information-col-item" style="color: black;">{{ eachTankData['tank_damage_average'] }}</div>
-						<div class="information-col-item" style="color: black;">{{ eachTankData['tank_power'] }}</div>
+						<div class="information-col-item" style="color: setPowerColor({{ eachTankData['tank_power'] }});">{{ eachTankData['tank_power'] }}</div>
 					</div>
 					{% endfor %}
 				</div>
@@ -447,7 +458,7 @@
 		}
 
 		.information-type {
-			color: #909399;
+			font-size: 20px;
 		}
 
 		.day-body {
@@ -492,3 +503,36 @@
 			margin-bottom: 20px;
 		}
 </style>
+<script>
+		// PR条颜色动态变化
+		let bar_bg_width = document.querySelector('.pr-bar-bg').clientWidth;
+		let pr_number = document.querySelector('.pr-number').innerText;
+		pr_number = parseInt(pr_number);
+		if (pr_number == 0) {
+			document.querySelector(".pr-bar").style.backgroundColor = "#828282";
+			document.querySelector(".pr-text").innerText = "暂无数据";
+		} else if (pr_number < 500) {
+			document.querySelector(".pr-bar").style.backgroundColor = "#FE7903";
+			document.querySelector(".pr-text").innerText = "还需努力";
+		} else if (pr_number < 700) {
+			document.querySelector(".pr-bar").style.backgroundColor = "#44B300";
+			document.querySelector(".pr-text").innerText = "平均水平";
+		} else if (pr_number < 900) {
+			document.querySelector(".pr-bar").style.backgroundColor = "#02C9B3";
+			document.querySelector(".pr-text").innerText = "团队中坚";
+		} else if (pr_number < 1100) {
+			document.querySelector(".pr-bar").style.backgroundColor = "#D042F3";
+			document.querySelector(".pr-text").innerText = "大佬水平";
+		} else {
+			document.querySelector(".pr-bar").style.backgroundColor = "#673AB7";
+			document.querySelector(".pr-text").innerText = "神佬水平";
+			pr_number = 1400; //防止pr条溢出
+		}
+
+		if (pr_number < 220 && pr_number > 0) {
+			pr_number = 220; //防止pr过低导致圆角异常
+		}
+		// PR条动态长度
+		let width = bar_bg_width * (pr_number / 1400);
+		document.querySelector('.pr-bar').style.width = width + "px";
+</script>

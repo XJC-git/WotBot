@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import Tuple, Protocol
 
 from src.plugins.wotbot.wotbot_query import query_player_by_name
-
+from src.plugins.wotbot.wotbot_bind import bind_player,query_player
 
 class Func(Protocol):
     async def __call__(self, **kwargs):
@@ -18,7 +18,9 @@ class Command:
 
 
 command_list = [
-    Command(('player', '查询玩家', '玩家'), None, query_player_by_name)
+    Command(('player', '查询玩家', '玩家'), None, query_player_by_name),
+    Command(('bind','绑定','绑定账号'),None,bind_player),
+    Command(('query','查询绑定'),None,query_player)
 ]
 
 
@@ -34,6 +36,8 @@ async def match_command(args,bot,ev):
     target_command = None
     while search_list is not None:
         res = search_in_list(args[args_position],search_list)
+        if res is None:
+            break
         search_list = res.child_command
         args_position += 1
         target_command = res
